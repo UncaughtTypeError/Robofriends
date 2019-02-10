@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'SEGA LOGO FONT';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SEGA LOGO FONT'), url('SEGA.woff') format('woff')
+}
+
+h1.robo-title {
+  font-family: 'SEGA LOGO FONT';
+  font-size: 4rem;
+  padding: 20px 0;
+}
+
+@media(max-width: 960px) {
+  
+  h1.robo-title {
+    font-size: 2rem;
+  }
+
+}

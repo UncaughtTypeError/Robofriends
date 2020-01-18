@@ -9,7 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -50,7 +49,7 @@ class RoboCard extends React.Component {
       <Card className={classes.card + addClasses} id={`robo${id}`}>
         <CardActionArea>
           <CircularProgress className={classes.progress} />
-          <Tooltip classes={{ tooltip: classes.tooltip }} title={`Contemplative Rando Robo-${id}`} placement="top">
+          <Tooltip classes={{ tooltip: classes.tooltip }} title={name} placement="top">
             <CardMedia
               component="img"
               alt="Contemplative Robo"
@@ -71,9 +70,6 @@ class RoboCard extends React.Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="default">
-            Share
-          </Button>
           <DialogueBox name={name}>
             <Typography gutterBottom>
               {about}

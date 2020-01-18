@@ -10,6 +10,22 @@ import { withStyles } from '@material-ui/core/styles';
 // Actions
 import { setSearchField } from '../actions';
 
+const styles = theme => ({
+  positionFixed: {
+    marginBottom: '125px',
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  title: {
+    display: 'none',
+    textAlign: 'center',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+});
+
 // define what state to listen to, send down as props
 const mapStateToProps = (state) => {
   return {
@@ -23,26 +39,6 @@ const mapDispatchToProps = (dispatch) => {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value))
   }
 }
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: '10px',
-  },
-  positionFixed: {
-    marginBottom: '70px',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  title: {
-    display: 'none',
-    textAlign: 'center',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-});
 
 class Header extends React.Component {
 

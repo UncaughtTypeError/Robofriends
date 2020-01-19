@@ -51,11 +51,12 @@ class RoboCard extends React.Component {
     super(props);
     this.state = {
       imgUrl: null,
-      tempUrl: 'https://robohash.org/1?300x350',
+      tempUrl: `https://robohash.org/${this.props.id}?300x350`,
+      elID: 'roboCard'+this.props.id,
     }
   }
 
-  async componentDidMount() {    
+  async componentDidMount() {   
 
     let imgID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 
@@ -65,44 +66,62 @@ class RoboCard extends React.Component {
         console.error('(http error)',response.statusText);
       } 
       const url = await response.url; 
+
       this.setState({ imgUrl: url });  
+
+      let elID = document.getElementById(this.state.elID);
+      elID.onerror = (error) => {
+        console.error(error);
+        throw new Error(error);
+      }
+
     } catch (error) {
       console.error('(network error)',error);
-    }
+    };
 
   }
 
   render() {
     const { classes, name, email, about, id } = this.props;
+    
+    let Media = () => {
+      if(this.state.imgUrl) {
+          return (
+            <Tooltip classes={{ tooltip: classes.tooltip }} title={name} placement="top">
+              <CardMedia
+                component="img"
+                alt={name}
+                className={classes.media}
+                height="350"
+                image={this.state.imgUrl}
+                aria-label={name}
+                id={this.state.elID}
+              />
+            </Tooltip>
+          )
+      } else {
+        return (
+          <React.Fragment>
+            <CardMedia
+              component="img"
+              alt={name}
+              className={`${classes.media} ${classes.mediaTemp}`}
+              height="350"
+              image={this.state.tempUrl}
+              aria-label={name}
+              id={this.state.elID}
+            />
+            <CircularProgress className={classes.progress} />
+          </React.Fragment>
+        )
+      }
+    }
 
     return(
       <Card className={classes.card} id={`robo${id}`}>
         <CardActionArea>
-          <ErrorBoundryCardMedia name={name}>
-            { this.state.imgUrl ? 
-              <Tooltip classes={{ tooltip: classes.tooltip }} title={name} placement="top">
-                <CardMedia
-                  component="img"
-                  alt={name}
-                  className={classes.media}
-                  height="350"
-                  image={this.state.imgUrl}
-                  aria-label={name}
-                />
-              </Tooltip>
-              :
-              <React.Fragment>
-                <CardMedia
-                  component="img"
-                  alt={name}
-                  className={`${classes.media} ${classes.mediaTemp}`}
-                  height="350"
-                  image={this.state.tempUrl}
-                  aria-label={name}
-                />
-                <CircularProgress className={classes.progress} />
-              </React.Fragment>
-            }
+          <ErrorBoundryCardMedia props={{name, id: this.state.elID}}>
+            <Media />
           </ErrorBoundryCardMedia>
           <Divider />
           <CardContent>

@@ -11,10 +11,6 @@ const styles = {
         zIndex: 2,
         position: 'relative',
     },
-    mediaTemp: {
-        opacity: '.2',
-        filter: 'grayscale(1)',
-    },
 };
 
 class ErrorBoundryCardMedia extends Component {
@@ -22,7 +18,7 @@ class ErrorBoundryCardMedia extends Component {
         super(props);
         this.state = {
             hasError: false,
-            tempUrl: 'https://robohash.org/1?300x350',
+            tempUrl: `https://robohash.org/${this.props.id}?300x350`,
         }
     }
 
@@ -32,17 +28,18 @@ class ErrorBoundryCardMedia extends Component {
     }
 
     render() {
-        const { classes, name } = this.props;
+        const { classes, name, id } = this.props;
 
         if(this.state.hasError) {
             return (
                 <CardMedia
-                component="img"
-                alt={name}
-                className={`${classes.media} ${classes.mediaTemp}`}
-                height="350"
-                image={this.state.tempUrl}
-                aria-label={name}
+                    component="img"
+                    alt={name}
+                    className={classes.media}
+                    height="350"
+                    image={this.state.tempUrl}
+                    aria-label={name}
+                    id={id}
                 />
             )
         }

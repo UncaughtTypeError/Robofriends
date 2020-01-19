@@ -49,7 +49,6 @@ class Header extends React.Component {
 
   render() {
     const { classes, onSearchChange, } = this.props;
-    console.log({classes});
 
     return (
       <div className={classes.positionFixed}>

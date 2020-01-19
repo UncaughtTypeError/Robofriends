@@ -40,7 +40,6 @@ class CardGrid extends React.Component {
             {robots.map(robot => (
               <Grid key={robot.id} item>
                 <RoboCard 
-                  addClasses="robo-card" 
                   id={robot.id} 
                   name={robot.name} 
                   email={robot.email} 

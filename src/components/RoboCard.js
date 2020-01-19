@@ -1,6 +1,6 @@
 import React from 'react';
-import './RoboCard.css';
 import DialogueBox from '../containers/DialogueBox';
+import ErrorBoundryCardMedia from '../components/ErrorBoundryCardMedia';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -15,7 +15,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   card: {
-    maxWidth: 300,
+    minWidth: 300,
+    minHeight: 350,
   },
   tooltip: {
     fontSize: 15,
@@ -24,8 +25,13 @@ const styles = {
     // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover',
     minWidth: 300,
+    minHeight: 350,
     zIndex: 2,
     position: 'relative',
+  },
+  mediaTemp: {
+    opacity: '.2',
+    filter: 'grayscale(1)',
   },
   progress: {
     position: 'absolute',
@@ -41,24 +47,63 @@ const styles = {
 
 class RoboCard extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      imgUrl: null,
+      tempUrl: 'https://robohash.org/1?300x350',
+    }
+  }
+
+  async componentDidMount() {    
+
+    let imgID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+
+    try {
+      const response = await fetch(`https://robohash.org/${imgID}?300x350`);
+      if (!response.ok) {
+        console.error('(http error)',response.statusText);
+      } 
+      const url = await response.url; 
+      this.setState({ imgUrl: url });  
+    } catch (error) {
+      console.error('(network error)',error);
+    }
+
+  }
+
   render() {
-    const { classes, addClasses, name, email, about, id } = this.props;
-    const imgID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    const { classes, name, email, about, id } = this.props;
 
     return(
-      <Card className={classes.card + addClasses} id={`robo${id}`}>
+      <Card className={classes.card} id={`robo${id}`}>
         <CardActionArea>
-          <CircularProgress className={classes.progress} />
-          <Tooltip classes={{ tooltip: classes.tooltip }} title={name} placement="top">
-            <CardMedia
-              component="img"
-              alt="Contemplative Robo"
-              className={classes.media}
-              height="350"
-              image={`https://robohash.org/${imgID}?300x350`}
-              aria-label={`Contemplative Robo-${id}`}
-            />
-          </Tooltip>
+          <ErrorBoundryCardMedia name={name}>
+            { this.state.imgUrl ? 
+              <Tooltip classes={{ tooltip: classes.tooltip }} title={name} placement="top">
+                <CardMedia
+                  component="img"
+                  alt={name}
+                  className={classes.media}
+                  height="350"
+                  image={this.state.imgUrl}
+                  aria-label={name}
+                />
+              </Tooltip>
+              :
+              <React.Fragment>
+                <CardMedia
+                  component="img"
+                  alt={name}
+                  className={`${classes.media} ${classes.mediaTemp}`}
+                  height="350"
+                  image={this.state.tempUrl}
+                  aria-label={name}
+                />
+                <CircularProgress className={classes.progress} />
+              </React.Fragment>
+            }
+          </ErrorBoundryCardMedia>
           <Divider />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">

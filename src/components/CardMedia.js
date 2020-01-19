@@ -47,7 +47,7 @@ class CardMediaWrapper extends React.Component {
             tempUrl: `https://robohash.org/${this.props.id}?300x350`,
             elID: 'CardMediaWrapper'+this.props.id,
             imgLoaded: false,
-            imgTimeout: setTimeout(() => { this.forceSetImg() }, 30000),
+            imgTimeout: null,
         }
     }
 
@@ -78,6 +78,10 @@ class CardMediaWrapper extends React.Component {
         } catch (error) {
             console.error('(network error)',error);
         };
+
+        if(!this.state.imgLoaded) {
+            this.setState({imgTimeout: setTimeout(() => { this.forceSetImg() }, 30000)});
+        }
     }
 
     forceSetImg() {

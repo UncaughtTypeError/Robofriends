@@ -13,16 +13,21 @@ import { setSearchField } from '../actions';
 const styles = theme => ({
   positionFixed: {
     marginBottom: '125px',
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: '135px',
+    },
+  },
+  toolbar: {
+    [theme.breakpoints.down('xs')]: {
+      flexFlow: 'column',
+      alignItems: 'stretch',
+    },
   },
   grow: {
     flexGrow: 1,
   },
   title: {
-    display: 'none',
     textAlign: 'center',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
   },
 });
 
@@ -44,17 +49,17 @@ class Header extends React.Component {
 
   render() {
     const { classes, onSearchChange, } = this.props;
+    console.log({classes});
 
     return (
-      <div className={`${classes.root} ${classes.positionFixed}`}>
+      <div className={classes.positionFixed}>
         <AppBar position="fixed" color="default">
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <Typography className={`${classes.title} robo-title`} variant="h1" color="inherit" noWrap>
               RoboFriends
             </Typography>
             <div className={classes.grow} />
-            <SearchBox searchChange={onSearchChange} 
-            />
+            <SearchBox searchChange={onSearchChange} />
           </Toolbar>
         </AppBar>
       </div>

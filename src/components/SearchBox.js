@@ -10,6 +10,9 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       flexGrow: 1,
     },
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: '15px',
+    },
   },
   search: {
     position: 'relative',

@@ -1,4 +1,7 @@
-## Built With:
+## RoboFriends
+*A simple React App*
+
+### Built With:
 - React
 - Redux
 - MaterialUI

@@ -44,7 +44,7 @@ class CardMediaWrapper extends React.Component {
         super(props);
         this.state = {
             imgUrl: null,
-            tempUrl: `https://robohash.org/${this.props.id}?300x350`,
+            tempUrl: `https://robohash.org/${this.props.id}?size=300x350`,
             elID: 'CardMediaWrapper'+this.props.id,
             imgLoaded: false,
             imgTimeout: null,
@@ -56,7 +56,7 @@ class CardMediaWrapper extends React.Component {
         let imgID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 
         try {
-            const response = await fetch(`https://robohash.org/${imgID}?300x350`);
+            const response = await fetch(`https://robohash.org/${imgID}?size=300x350`);
             if (!response.ok) {
                 console.error('(http error)',response.statusText);
             } 

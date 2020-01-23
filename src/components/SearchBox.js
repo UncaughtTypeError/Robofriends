@@ -74,6 +74,7 @@ class SearchBox extends React.Component {
               input: classes.inputInput,
             }}
             onChange={searchChange}
+            inputProps={{ 'aria-label': 'Search Robots' }}
           />
         </div>
       </div>

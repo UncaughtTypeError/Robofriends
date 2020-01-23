@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "RoboFriends",
+  "short_name": "RoboFriends",
   "icons": [
     {
       "src": "favicon.ico",
@@ -13,7 +13,7 @@
       "type": "image/png"
     },
     {
-      "src": "app-manifest-splash-screen.jpg",
+      "src": "app-manifest-splash-screen.png",
       "sizes": "512x512",
       "type": "image/png"
     }

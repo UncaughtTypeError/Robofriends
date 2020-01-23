@@ -39,7 +39,7 @@ class Footer extends React.Component {
         <Tooltip classes={{ tooltip: classes.tooltip }} title="Repo" placement="top">
           <BottomNavigationAction 
             icon={
-              <Link href={url} className={classes.link}>
+              <Link href={url} className={classes.link} title='Repo'>
                 <FontAwesomeIcon 
                   icon={['fab', 'github']} 
                   size="2x" 
